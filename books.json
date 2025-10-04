@@ -1,5 +1,65 @@
 [
     {
+        "id": "163",
+        "title": "The 5 AM Club",
+        "author": "Robin Sharma",
+        "description": "A guide to transforming your life by rising early, maximizing productivity, and nurturing personal growth.",
+        "cover": "https://i.postimg.cc/kXjWmHcK/The-5-AM-Club.png",
+        "rating": 4.6,
+        "formats": ["PDF"],
+        "downloads": 0,
+        "category": "Self-Help",
+        "downloadLink": "https://example.com/the-5-am-club.pdf"
+    },
+    {
+        "id": "162",
+        "title": "Who Moved My Cheese?",
+        "author": "Spencer Johnson",
+        "description": "A simple parable offering insights on how to deal with change in work and life.",
+        "cover": "https://i.postimg.cc/6pC2vRz5/Who-Moved-My-Cheese.png",
+        "rating": 4.5,
+        "formats": ["PDF"],
+        "downloads": 0,
+        "category": "Self-Help",
+        "downloadLink": "https://example.com/who-moved-my-cheese.pdf"
+    },
+    {
+        "id": "161",
+        "title": "Think and Grow Rich",
+        "author": "Napoleon Hill",
+        "description": "A timeless classic teaching the principles of success and wealth creation through mindset and persistence.",
+        "cover": "https://i.postimg.cc/0QmVgSZX/Think-and-Grow-Rich.png",
+        "rating": 4.8,
+        "formats": ["PDF"],
+        "downloads": 0,
+        "category": "Self-Help",
+        "downloadLink": "https://example.com/think-and-grow-rich.pdf"
+    },
+    {
+        "id": "160",
+        "title": "How to Win Friends and Influence People",
+        "author": "Dale Carnegie",
+        "description": "A foundational guide to improving communication, relationships, and influence.",
+        "cover": "https://i.postimg.cc/Y9qfPNJ7/How-to-Win-Friends.png",
+        "rating": 4.9,
+        "formats": ["PDF"],
+        "downloads": 0,
+        "category": "Self-Help",
+        "downloadLink": "https://example.com/how-to-win-friends.pdf"
+    },
+    {
+        "id": "159",
+        "title": "Awaken the Giant Within",
+        "author": "Tony Robbins",
+        "description": "Practical strategies to take control of your emotions, finances, relationships, and life.",
+        "cover": "https://i.postimg.cc/Ls9C7ctW/Awaken-the-Giant-Within.png",
+        "rating": 4.7,
+        "formats": ["PDF"],
+        "downloads": 0,
+        "category": "Self-Help",
+        "downloadLink": "https://example.com/awaken-the-giant-within.pdf"
+    },
+    {
         "id": "158",
         "title": "Unlimited Power",
         "author": "Tony Robbins",
