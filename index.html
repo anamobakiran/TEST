@@ -3,49 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookShelf Nexus</title>
+    <title>BookShelf Pro</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto Mono', monospace;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: radial-gradient(circle at center, #0d0d2b, #1a1a4e);
-            color: #e0e0ff;
             min-height: 100vh;
-            overflow-x: hidden;
+            background: #f4f7fa;
+            color: #1e2a44;
+            transition: background 0.3s, color 0.3s;
         }
 
-        body.light {
-            background: radial-gradient(circle at center, #e6e6fa, #b0c4de);
-            color: #1a1a4e;
+        body.dark {
+            background: #1e2a44;
+            color: #e6e9f0;
         }
 
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
-            width: 100%;
             z-index: 1000;
-            background: linear-gradient(45deg, rgba(138, 43, 226, 0.8), rgba(0, 191, 255, 0.8));
-            backdrop-filter: blur(15px);
-            clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
-            padding: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            animation: headerGlow 3s infinite alternate;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 98% 100%, 2% 100%, 0 80%);
+            transition: transform 0.3s ease;
         }
 
-        @keyframes headerGlow {
-            0% { box-shadow: 0 4px 20px rgba(138, 43, 226, 0.5); }
-            100% { box-shadow: 0 4px 20px rgba(0, 191, 255, 0.5); }
+        .dark header {
+            background: #2a3b5c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header.scrolled {
+            transform: translateY(-5px);
         }
 
         .header-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -53,168 +55,162 @@
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
+            color: #3b82f6;
             cursor: pointer;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            transition: transform 0.3s ease;
+            transition: color 0.3s ease;
+        }
+
+        .dark .logo {
+            color: #60a5fa;
         }
 
         .logo:hover {
-            transform: rotate(5deg) scale(1.1);
+            color: #2563eb;
         }
 
         .controls {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             align-items: center;
         }
 
         .search-bar {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            color: #e0e0ff;
-            width: 180px;
-            transition: all 0.4s ease;
-            box-shadow: inset 0 0 5px rgba(0, 191, 255, 0.5);
+            padding: 0.6rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            width: 220px;
+            transition: all 0.3s ease;
+            background: #ffffff;
         }
 
-        .light .search-bar {
-            background: rgba(0, 0, 0, 0.1);
-            color: #1a1a4e;
-            box-shadow: inset 0 0 5px rgba(138, 43, 226, 0.5);
+        .dark .search-bar {
+            background: #374151;
+            border-color: #4b5e7e;
+            color: #e6e9f0;
         }
 
         .search-bar:focus {
-            width: 220px;
-            background: rgba(255, 255, 255, 0.25);
+            width: 260px;
+            border-color: #3b82f6;
             outline: none;
-            box-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
 
         .category-filter {
-            padding: 0.6rem;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            color: #e0e0ff;
+            padding: 0.6rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #ffffff;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
         }
 
-        .light .category-filter {
-            background: rgba(0, 0, 0, 0.1);
-            color: #1a1a4e;
+        .dark .category-filter {
+            background: #374151;
+            border-color: #4b5e7e;
+            color: #e6e9f0;
         }
 
         .category-filter:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
+            border-color: #3b82f6;
         }
 
         .dark-mode-toggle {
             background: none;
             border: none;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            color: #ff00ff;
-            transition: transform 0.5s ease;
+            color: #3b82f6;
+            transition: transform 0.3s ease;
         }
 
-        .light .dark-mode-toggle {
-            color: #00b7eb;
+        .dark .dark-mode-toggle {
+            color: #60a5fa;
         }
 
         .dark-mode-toggle:hover {
-            transform: rotate(180deg);
+            transform: scale(1.2);
         }
 
         .main-content {
             max-width: 1400px;
-            margin: 6rem auto 2rem;
-            padding: 0 1rem;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
         }
 
         .book-grid {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            justify-content: center;
-            perspective: 1000px;
+            padding: 2rem 0;
         }
 
         .book-card {
-            width: 300px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+            background: #ffffff;
+            border-radius: 12px;
             overflow: hidden;
-            position: relative;
-            transition: transform 0.6s ease, box-shadow 0.6s ease;
-            transform-style: preserve-3d;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             opacity: 0;
-            animation: bookPop 0.8s forwards ease-out;
+            animation: cardFadeIn 0.5s ease-out forwards;
         }
 
-        .light .book-card {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        .dark .book-card {
+            background: #2a3b5c;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .book-card:hover {
-            transform: rotateY(10deg) translateZ(20px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .book-card img {
             width: 100%;
-            height: 250px;
+            height: 240px;
             object-fit: cover;
-            border-bottom: 3px solid #ff00ff;
+            border-bottom: 2px solid #3b82f6;
             transition: transform 0.3s ease;
         }
 
-        .light .book-card img {
-            border-bottom: 3px solid #00b7eb;
+        .dark .book-card img {
+            border-bottom-color: #60a5fa;
         }
 
         .book-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .book-card-content {
             padding: 1.5rem;
-            position: relative;
-            z-index: 1;
         }
 
         .book-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #1e2a44;
+        }
+
+        .dark .book-card h3 {
+            color: #e6e9f0;
         }
 
         .book-card p.author {
             font-size: 0.9rem;
-            color: #a0a0ff;
+            color: #6b7280;
             margin-bottom: 0.5rem;
         }
 
-        .light .book-card p.author {
-            color: #1a1a4e;
+        .dark .book-card p.author {
+            color: #9ca3af;
         }
 
         .book-card p.description {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            color: #4b5563;
             margin-bottom: 1rem;
             display: -webkit-box;
             -webkit-line-clamp: 3;
@@ -222,139 +218,136 @@
             overflow: hidden;
         }
 
-        .book-card .rating {
-            color: #ff00ff;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            animation: pulseRating 2s infinite;
+        .dark .book-card p.description {
+            color: #d1d5db;
         }
 
-        .light .book-card .rating {
-            color: #00b7eb;
+        .book-card .rating {
+            color: #f59e0b;
+            font-weight: 500;
+            margin-bottom: 1rem;
         }
 
         .download-btn {
             display: inline-block;
-            padding: 0.7rem 1.5rem;
-            background: linear-gradient(45deg, #ff00ff, #00b7eb);
-            color: white;
+            padding: 0.6rem 1.2rem;
+            background: #3b82f6;
+            color: #ffffff;
             text-decoration: none;
-            border-radius: 50px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
-        .download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.4s ease;
-        }
-
-        .download-btn:hover::before {
-            left: 100%;
+        .dark .download-btn {
+            background: #60a5fa;
         }
 
         .download-btn:hover {
-            transform: scale(1.1);
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .dark .download-btn:hover {
+            background: #3b82f6;
         }
 
         .pagination {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin: 3rem 0;
-            perspective: 1000px;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
         }
 
         .pagination button {
-            padding: 0.8rem 2rem;
+            padding: 0.6rem 1rem;
             border: none;
-            background: linear-gradient(45deg, #ff00ff, #00b7eb);
-            color: white;
-            border-radius: 50px;
+            background: #3b82f6;
+            color: #ffffff;
+            border-radius: 8px;
             cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            transition: transform 0.4s ease;
-            transform-style: preserve-3d;
+            font-weight: 500;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .dark .pagination button {
+            background: #60a5fa;
         }
 
         .pagination button:disabled {
-            background: #444;
+            background: #d1d5db;
             cursor: not-allowed;
-            transform: none;
+        }
+
+        .dark .pagination button:disabled {
+            background: #4b5e7e;
         }
 
         .pagination button:hover:not(:disabled) {
-            transform: rotateX(10deg) scale(1.1);
+            background: #2563eb;
+            transform: translateY(-2px);
         }
 
-        .page-orbs {
+        .dark .pagination button:hover:not(:disabled) {
+            background: #3b82f6;
+        }
+
+        .page-numbers {
             display: flex;
             gap: 0.5rem;
-            margin: 0 1rem;
         }
 
-        .page-orb {
-            width: 12px;
-            height: 12px;
-            background: #ff00ff;
-            border-radius: 50%;
-            transition: transform 0.3s ease, background 0.3s ease;
+        .page-number {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #e5e7eb;
+            color: #1e2a44;
+            transition: all 0.3s ease;
         }
 
-        .light .page-orb {
-            background: #00b7eb;
+        .dark .page-number {
+            background: #374151;
+            color: #e6e9f0;
         }
 
-        .page-orb.active {
-            transform: scale(1.5);
-            background: #00ffff;
+        .page-number.active {
+            background: #3b82f6;
+            color: #ffffff;
         }
 
-        .light .page-orb.active {
-            background: #ff00ff;
+        .dark .page-number.active {
+            background: #60a5fa;
+        }
+
+        .page-number:hover:not(.active) {
+            background: #d1d5db;
+        }
+
+        .dark .page-number:hover:not(.active) {
+            background: #4b5e7e;
         }
 
         .no-books, .loading {
             text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            margin: 4rem 0;
-            color: #ff00ff;
-            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
-            animation: neonFlicker 1.5s infinite;
+            font-size: 1.3rem;
+            margin: 3rem 0;
+            color: #6b7280;
         }
 
-        .light .no-books, .light .loading {
-            color: #00b7eb;
-            text-shadow: 0 0 10px rgba(0, 183, 235, 0.5);
+        .dark .no-books, .dark .loading {
+            color: #9ca3af;
         }
 
-        @keyframes bookPop {
-            0% { opacity: 0; transform: translateZ(-100px) rotateY(-20deg); }
-            100% { opacity: 1; transform: translateZ(0) rotateY(0); }
-        }
-
-        @keyframes pulseRating {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        @keyframes neonFlicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
             header {
-                clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
+                clip-path: polygon(0 0, 100% 0, 100% 85%, 98% 100%, 2% 100%, 0 85%);
             }
 
             .header-content {
@@ -367,19 +360,17 @@
             }
 
             .book-grid {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
             }
 
             .book-card {
-                width: 90%;
                 animation-delay: 0s;
             }
         }
 
         @media (max-width: 480px) {
             .logo {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
 
             .book-card img {
@@ -391,7 +382,11 @@
             }
 
             .pagination button {
-                padding: 0.6rem 1.5rem;
+                padding: 0.5rem 0.8rem;
+            }
+
+            .page-number {
+                padding: 0.4rem 0.8rem;
             }
         }
     </style>
@@ -399,19 +394,19 @@
 <body class="light">
     <header>
         <div class="header-content">
-            <div class="logo" onclick="resetFilters()">📚 BookShelf Nexus</div>
+            <div class="logo" onclick="resetFilters()">📚 BookShelf Pro</div>
             <div class="controls">
-                <input type="text" class="search-bar" placeholder="Search the Cosmos..." oninput="handleSearch(this.value)">
+                <input type="text" class="search-bar" placeholder="Search by title or author..." oninput="debounceSearch(this.value)">
                 <select class="category-filter" onchange="handleCategoryChange(this.value)">
-                    <option value="">All Realms</option>
+                    <option value="">All Categories</option>
                 </select>
-                <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌌</button>
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
             </div>
         </div>
     </header>
     <div class="main-content">
-        <div class="loading" id="loading">Summoning Tomes...</div>
-        <div class="no-books" id="noBooks" style="display: none;">No Tomes Found in This Realm!</div>
+        <div class="loading" id="loading">Loading books...</div>
+        <div class="no-books" id="noBooks" style="display: none;">No books found.</div>
         <div class="book-grid" id="bookGrid"></div>
         <div class="pagination" id="pagination"></div>
     </div>
@@ -420,11 +415,18 @@
         let filteredBooks = [];
         let currentPage = 1;
         const booksPerPage = 8;
+        let searchTimeout;
 
         // Load theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.body.className = savedTheme;
-        document.querySelector('.dark-mode-toggle').textContent = savedTheme === 'light' ? '🌌' : '☀️';
+        document.querySelector('.dark-mode-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
 
         // Fetch books
         async function loadBooks() {
@@ -437,8 +439,8 @@
                 renderBooks();
                 document.getElementById('loading').style.display = 'none';
             } catch (error) {
-                console.error('Error summoning tomes:', error);
-                document.getElementById('loading').textContent = 'Error Summoning Tomes!';
+                console.error('Error loading books:', error);
+                document.getElementById('loading').textContent = 'Error loading books.';
             }
         }
 
@@ -476,7 +478,7 @@
             pageBooks.forEach((book, index) => {
                 const card = document.createElement('div');
                 card.className = 'book-card';
-                card.style.animationDelay = `${index * 0.15}s`;
+                card.style.animationDelay = `${index * 0.1}s`;
                 card.innerHTML = `
                     <img src="${book.cover}" alt="${book.title} cover">
                     <div class="book-card-content">
@@ -484,13 +486,14 @@
                         <p class="author">by ${book.author}</p>
                         <p class="description">${book.description}</p>
                         <div class="rating">Rating: ${book.rating} / 5</div>
-                        <a href="${book.downloadLink}" class="download-btn">Unlock Tome</a>
+                        <a href="${book.downloadLink}" class="download-btn">Download PDF</a>
                     </div>
                 `;
                 bookGrid.appendChild(card);
             });
 
             renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Render pagination
@@ -499,43 +502,58 @@
             pagination.innerHTML = '';
             const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
 
+            // Previous button
             const prevButton = document.createElement('button');
-            prevButton.textContent = '← Warp Back';
+            prevButton.textContent = 'Previous';
             prevButton.disabled = currentPage === 1;
             prevButton.onclick = () => {
                 if (currentPage > 1) {
                     currentPage--;
                     renderBooks();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             };
             pagination.appendChild(prevButton);
 
-            const orbsContainer = document.createElement('div');
-            orbsContainer.className = 'page-orbs';
-            for (let i = 1; i <= totalPages; i++) {
-                const orb = document.createElement('div');
-                orb.className = `page-orb ${i === currentPage ? 'active' : ''}`;
-                orb.onclick = () => {
+            // Page numbers
+            const pageNumbers = document.createElement('div');
+            pageNumbers.className = 'page-numbers';
+            const maxPagesToShow = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+            let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+            if (endPage - startPage + 1 < maxPagesToShow) {
+                startPage = Math.max(1, endPage - maxPagesToShow + 1);
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageNumber = document.createElement('div');
+                pageNumber.className = `page-number ${i === currentPage ? 'active' : ''}`;
+                pageNumber.textContent = i;
+                pageNumber.onclick = () => {
                     currentPage = i;
                     renderBooks();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 };
-                orbsContainer.appendChild(orb);
+                pageNumbers.appendChild(pageNumber);
             }
-            pagination.appendChild(orbsContainer);
+            pagination.appendChild(pageNumbers);
 
+            // Next button
             const nextButton = document.createElement('button');
-            nextButton.textContent = 'Warp Forward →';
+            nextButton.textContent = 'Next';
             nextButton.disabled = currentPage === totalPages;
             nextButton.onclick = () => {
                 if (currentPage < totalPages) {
                     currentPage++;
                     renderBooks();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             };
             pagination.appendChild(nextButton);
+        }
+
+        // Debounce search
+        function debounceSearch(query) {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => handleSearch(query), 300);
         }
 
         // Handle search
@@ -569,7 +587,7 @@
         function toggleDarkMode() {
             const isDark = document.body.classList.contains('dark');
             document.body.className = isDark ? 'light' : 'dark';
-            document.querySelector('.dark-mode-toggle').textContent = isDark ? '🌌' : '☀️';
+            document.querySelector('.dark-mode-toggle').textContent = isDark ? '🌙' : '☀️';
             localStorage.setItem('theme', isDark ? 'light' : 'dark');
         }
 
