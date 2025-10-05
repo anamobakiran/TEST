@@ -3,69 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BookShelf</title>
+    <title>BookShelf Nexus</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Roboto Mono', monospace;
         }
 
         body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1e1e2f, #2a2a4e);
+            background: radial-gradient(circle at center, #0d0d2b, #1a1a4e);
             color: #e0e0ff;
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
         body.light {
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            color: #2a2a4e;
+            background: radial-gradient(circle at center, #e6e6fa, #b0c4de);
+            color: #1a1a4e;
         }
 
         header {
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 1000;
-            background: rgba(20, 20, 40, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
-            animation: headerPulse 4s infinite ease-in-out;
+            background: linear-gradient(45deg, rgba(138, 43, 226, 0.8), rgba(0, 191, 255, 0.8));
+            backdrop-filter: blur(15px);
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            animation: headerGlow 3s infinite alternate;
         }
 
-        .light header {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-        }
-
-        @keyframes headerPulse {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        @keyframes headerGlow {
+            0% { box-shadow: 0 4px 20px rgba(138, 43, 226, 0.5); }
+            100% { box-shadow: 0 4px 20px rgba(0, 191, 255, 0.5); }
         }
 
         .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .logo {
+            font-family: 'Orbitron', sans-serif;
             font-size: 2rem;
             font-weight: 700;
             cursor: pointer;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
         }
 
         .logo:hover {
-            transform: scale(1.1);
+            transform: rotate(5deg) scale(1.1);
         }
 
         .controls {
@@ -75,130 +75,129 @@
         }
 
         .search-bar {
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             border: none;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
             color: #e0e0ff;
-            width: 200px;
-            transition: all 0.3s;
+            width: 180px;
+            transition: all 0.4s ease;
+            box-shadow: inset 0 0 5px rgba(0, 191, 255, 0.5);
         }
 
         .light .search-bar {
             background: rgba(0, 0, 0, 0.1);
-            color: #2a2a4e;
+            color: #1a1a4e;
+            box-shadow: inset 0 0 5px rgba(138, 43, 226, 0.5);
         }
 
         .search-bar:focus {
-            width: 250px;
-            background: rgba(255, 255, 255, 0.2);
+            width: 220px;
+            background: rgba(255, 255, 255, 0.25);
             outline: none;
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.7);
         }
 
         .category-filter {
-            padding: 0.5rem;
+            padding: 0.6rem;
             border: none;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
             color: #e0e0ff;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.4s ease;
         }
 
         .light .category-filter {
             background: rgba(0, 0, 0, 0.1);
-            color: #2a2a4e;
+            color: #1a1a4e;
         }
 
         .category-filter:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
         }
 
         .dark-mode-toggle {
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            color: #ff6b6b;
-            transition: transform 0.3s;
+            color: #ff00ff;
+            transition: transform 0.5s ease;
         }
 
         .light .dark-mode-toggle {
-            color: #4ecdc4;
+            color: #00b7eb;
         }
 
         .dark-mode-toggle:hover {
-            transform: rotate(360deg);
+            transform: rotate(180deg);
         }
 
         .main-content {
-            max-width: 1200px;
-            margin: 2rem auto;
+            max-width: 1400px;
+            margin: 6rem auto 2rem;
             padding: 0 1rem;
         }
 
         .book-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 2rem;
-            padding: 2rem 0;
+            justify-content: center;
+            perspective: 1000px;
         }
 
         .book-card {
+            width: 300px;
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
             position: relative;
-            transition: transform 0.5s, box-shadow 0.5s;
+            transition: transform 0.6s ease, box-shadow 0.6s ease;
+            transform-style: preserve-3d;
             opacity: 0;
-            animation: slideIn 0.6s forwards ease-out;
+            animation: bookPop 0.8s forwards ease-out;
         }
 
         .light .book-card {
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .book-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .book-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .book-card:hover::before {
-            opacity: 0.1;
+            transform: rotateY(10deg) translateZ(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .book-card img {
             width: 100%;
-            height: 220px;
+            height: 250px;
             object-fit: cover;
-            border-bottom: 2px solid #ff6b6b;
+            border-bottom: 3px solid #ff00ff;
+            transition: transform 0.3s ease;
         }
 
         .light .book-card img {
-            border-bottom: 2px solid #4ecdc4;
+            border-bottom: 3px solid #00b7eb;
+        }
+
+        .book-card:hover img {
+            transform: scale(1.05);
         }
 
         .book-card-content {
             padding: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .book-card h3 {
-            font-size: 1.3rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
             margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -211,11 +210,11 @@
         }
 
         .light .book-card p.author {
-            color: #2a2a4e;
+            color: #1a1a4e;
         }
 
         .book-card p.description {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-bottom: 1rem;
             display: -webkit-box;
             -webkit-line-clamp: 3;
@@ -224,88 +223,133 @@
         }
 
         .book-card .rating {
-            color: #ff6b6b;
+            color: #ff00ff;
             font-weight: 600;
             margin-bottom: 1rem;
+            animation: pulseRating 2s infinite;
         }
 
         .light .book-card .rating {
-            color: #4ecdc4;
+            color: #00b7eb;
         }
 
         .download-btn {
             display: inline-block;
-            padding: 0.6rem 1.2rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(45deg, #ff00ff, #00b7eb);
             color: white;
             text-decoration: none;
-            border-radius: 25px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.4s ease;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
         }
 
         .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transform: scale(1.1);
         }
 
         .pagination {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin: 2rem 0;
+            margin: 3rem 0;
+            perspective: 1000px;
         }
 
         .pagination button {
-            padding: 0.6rem 1.2rem;
+            padding: 0.8rem 2rem;
             border: none;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: linear-gradient(45deg, #ff00ff, #00b7eb);
             color: white;
-            border-radius: 25px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.3s;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            transition: transform 0.4s ease;
+            transform-style: preserve-3d;
         }
 
         .pagination button:disabled {
-            background: #555;
+            background: #444;
             cursor: not-allowed;
+            transform: none;
         }
 
         .pagination button:hover:not(:disabled) {
-            transform: scale(1.1);
+            transform: rotateX(10deg) scale(1.1);
         }
 
-        .no-books {
+        .page-orbs {
+            display: flex;
+            gap: 0.5rem;
+            margin: 0 1rem;
+        }
+
+        .page-orb {
+            width: 12px;
+            height: 12px;
+            background: #ff00ff;
+            border-radius: 50%;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .light .page-orb {
+            background: #00b7eb;
+        }
+
+        .page-orb.active {
+            transform: scale(1.5);
+            background: #00ffff;
+        }
+
+        .light .page-orb.active {
+            background: #ff00ff;
+        }
+
+        .no-books, .loading {
             text-align: center;
-            font-size: 1.5rem;
-            margin: 3rem 0;
-            color: #ff6b6b;
-            animation: pulse 2s infinite;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin: 4rem 0;
+            color: #ff00ff;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            animation: neonFlicker 1.5s infinite;
         }
 
-        .light .no-books {
-            color: #4ecdc4;
+        .light .no-books, .light .loading {
+            color: #00b7eb;
+            text-shadow: 0 0 10px rgba(0, 183, 235, 0.5);
         }
 
-        .loading {
-            text-align: center;
-            font-size: 1.5rem;
-            margin: 3rem 0;
-            color: #ff6b6b;
-            animation: pulse 1s infinite;
+        @keyframes bookPop {
+            0% { opacity: 0; transform: translateZ(-100px) rotateY(-20deg); }
+            100% { opacity: 1; transform: translateZ(0) rotateY(0); }
         }
 
-        .light .loading {
-            color: #4ecdc4;
+        @keyframes pulseRating {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(50px) rotate(2deg); }
-            to { opacity: 1; transform: translateY(0) rotate(0); }
-        }
-
-        @keyframes pulse {
+        @keyframes neonFlicker {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.7; }
         }
 
         @media (max-width: 768px) {
@@ -318,34 +362,36 @@
                 gap: 1rem;
             }
 
-            .search-bar {
-                width: 100%;
-            }
-
-            .category-filter {
+            .search-bar, .category-filter {
                 width: 100%;
             }
 
             .book-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
             }
 
             .book-card {
+                width: 90%;
                 animation-delay: 0s;
             }
         }
 
         @media (max-width: 480px) {
             .logo {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
 
             .book-card img {
-                height: 180px;
+                height: 200px;
             }
 
             .book-card h3 {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+            }
+
+            .pagination button {
+                padding: 0.6rem 1.5rem;
             }
         }
     </style>
@@ -353,19 +399,19 @@
 <body class="light">
     <header>
         <div class="header-content">
-            <div class="logo" onclick="resetFilters()">📚 BookShelf</div>
+            <div class="logo" onclick="resetFilters()">📚 BookShelf Nexus</div>
             <div class="controls">
-                <input type="text" class="search-bar" placeholder="Search books..." oninput="handleSearch(this.value)">
+                <input type="text" class="search-bar" placeholder="Search the Cosmos..." oninput="handleSearch(this.value)">
                 <select class="category-filter" onchange="handleCategoryChange(this.value)">
-                    <option value="">All Genres</option>
+                    <option value="">All Realms</option>
                 </select>
-                <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌌</button>
             </div>
         </div>
     </header>
     <div class="main-content">
-        <div class="loading" id="loading">Loading books...</div>
-        <div class="no-books" id="noBooks" style="display: none;">No books found!</div>
+        <div class="loading" id="loading">Summoning Tomes...</div>
+        <div class="no-books" id="noBooks" style="display: none;">No Tomes Found in This Realm!</div>
         <div class="book-grid" id="bookGrid"></div>
         <div class="pagination" id="pagination"></div>
     </div>
@@ -373,12 +419,12 @@
         let books = [];
         let filteredBooks = [];
         let currentPage = 1;
-        const booksPerPage = 10;
+        const booksPerPage = 8;
 
         // Load theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.body.className = savedTheme;
-        document.querySelector('.dark-mode-toggle').textContent = savedTheme === 'light' ? '🌙' : '☀️';
+        document.querySelector('.dark-mode-toggle').textContent = savedTheme === 'light' ? '🌌' : '☀️';
 
         // Fetch books
         async function loadBooks() {
@@ -391,8 +437,8 @@
                 renderBooks();
                 document.getElementById('loading').style.display = 'none';
             } catch (error) {
-                console.error('Error loading books:', error);
-                document.getElementById('loading').textContent = 'Error loading books!';
+                console.error('Error summoning tomes:', error);
+                document.getElementById('loading').textContent = 'Error Summoning Tomes!';
             }
         }
 
@@ -430,7 +476,7 @@
             pageBooks.forEach((book, index) => {
                 const card = document.createElement('div');
                 card.className = 'book-card';
-                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.animationDelay = `${index * 0.15}s`;
                 card.innerHTML = `
                     <img src="${book.cover}" alt="${book.title} cover">
                     <div class="book-card-content">
@@ -438,7 +484,7 @@
                         <p class="author">by ${book.author}</p>
                         <p class="description">${book.description}</p>
                         <div class="rating">Rating: ${book.rating} / 5</div>
-                        <a href="${book.downloadLink}" class="download-btn">Download PDF</a>
+                        <a href="${book.downloadLink}" class="download-btn">Unlock Tome</a>
                     </div>
                 `;
                 bookGrid.appendChild(card);
@@ -454,7 +500,7 @@
             const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
 
             const prevButton = document.createElement('button');
-            prevButton.textContent = 'Previous';
+            prevButton.textContent = '← Warp Back';
             prevButton.disabled = currentPage === 1;
             prevButton.onclick = () => {
                 if (currentPage > 1) {
@@ -465,8 +511,22 @@
             };
             pagination.appendChild(prevButton);
 
+            const orbsContainer = document.createElement('div');
+            orbsContainer.className = 'page-orbs';
+            for (let i = 1; i <= totalPages; i++) {
+                const orb = document.createElement('div');
+                orb.className = `page-orb ${i === currentPage ? 'active' : ''}`;
+                orb.onclick = () => {
+                    currentPage = i;
+                    renderBooks();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                };
+                orbsContainer.appendChild(orb);
+            }
+            pagination.appendChild(orbsContainer);
+
             const nextButton = document.createElement('button');
-            nextButton.textContent = 'Next';
+            nextButton.textContent = 'Warp Forward →';
             nextButton.disabled = currentPage === totalPages;
             nextButton.onclick = () => {
                 if (currentPage < totalPages) {
@@ -509,7 +569,7 @@
         function toggleDarkMode() {
             const isDark = document.body.classList.contains('dark');
             document.body.className = isDark ? 'light' : 'dark';
-            document.querySelector('.dark-mode-toggle').textContent = isDark ? '🌙' : '☀️';
+            document.querySelector('.dark-mode-toggle').textContent = isDark ? '🌌' : '☀️';
             localStorage.setItem('theme', isDark ? 'light' : 'dark');
         }
 
